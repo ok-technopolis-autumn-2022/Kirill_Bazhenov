@@ -3,83 +3,73 @@
 <head>
   <meta charset="utf-8">
   <title>ToDos Application</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
-  <h1>toDos</h1>
+  <h1>todos</h1>
 </header>
 <main role="main">
   <section class="todo-app_tasks">
     <header>
       <button class="button_select_all_tasks" aria-label="Select all tasks"></button>
-      <label>
-        <input type="text" placeholder="What needs to be done?"/>
-      </label>
+      <input class="needs_field" type="text" placeholder="What needs to be done?"/>
     </header>
-    <ul class="todo-app_task-list tasks">
-      <li class="todo-app_task-item task-item">
-        <div class="task-item_view">
-          <label>
-            <input name="task1" type="checkbox" role="checkbox" aria-label="Completed task: HTML"/>HTML
-          </label>
-          <button class="task-item_delete" role="button"></button>
-        </div>
+    <ul class="todo-app_task-list">
+      <li class="todo-app_task-item">
+        <input name="task1" id="first" class="task_item-checkbox" type="checkbox" role="checkbox"
+               aria-label="Completed task: HTML"/>
+        <label for="first">HTML</label>
+        <button class="task-item_delete" role="button"></button>
         <div class="task-item_edit" hidden="hidden">
           <input type="text" class="task-item_input" value="HTML" aria-label="Edit task: HTML">
         </div>
       </li>
-      <li class="todo-app_task-item task-item">
-        <div class="task-item_view">
-          <label>
-            <input name="task2" type="checkbox" role="checkbox" aria-label="Completed task: CSS"/>CSS
-          </label>
-          <button class="task-item_delete" aria-label="Delete task from list"></button>
-        </div>
+      <li class="todo-app_task-item">
+        <input name="task2" id="second" class="task_item-checkbox" type="checkbox" role="checkbox"
+               aria-label="Completed task: CSS"/>
+        <label for="second">CSS</label>
+        <button class="task-item_delete" aria-label="Delete task from list"></button>
         <div class="task-item_edit" hidden="hidden">
           <input type="text" class="task-item_input" value="CSS" aria-label="Edit task: CSS">
         </div>
       </li>
-      <li class="todo-app_task-item task-item">
-        <div class="task-item_view">
-          <label>
-            <input name="task3" type="checkbox" role="checkbox" aria-label="Completed task: JS"/>JS
-          </label>
-          <button class="task-item_delete" aria-label="Delete task from list"></button>
-        </div>
+      <li class="todo-app_task-item">
+        <input name="task3" id="third" class="task_item-checkbox" type="checkbox" role="checkbox"
+               aria-label="Completed task: JS"/>
+        <label for="third">JS</label>
+        <button class="task-item_delete" aria-label="Delete task from list"></button>
         <div class="task-item_edit" hidden="hidden">
           <input type="text" class="task-item_input" value="JS" aria-label="Edit task: JS">
         </div>
       </li>
-      <li class="todo-app_task-item task-item">
-        <div class="task-item_view">
-          <label>
-            <input name="task4" type="checkbox" role="checkbox" aria-label="Completed task: JS Tools"/>JS Tools
-          </label>
-          <button class="task-item_delete" aria-label="Delete task from list"></button>
-        </div>
+      <li class="todo-app_task-item">
+        <input name="task4" type="checkbox" id="fourth" class="task_item-checkbox" role="checkbox"
+               aria-label="Completed task: JS Tools"/>
+        <label for="fourth">JS tools</label>
+        <button class="task-item_delete" aria-label="Delete task from list"></button>
         <div class="task-item_edit" hidden="hidden">
           <input type="text" class="task-item_input" value="JS Tools" aria-label="Edit task: JS Tools">
         </div>
       </li>
     </ul>
   </section>
-</main>
 <footer>
   <div class="todo_app_task-count">
     <p aria-label="Amount of left tasks">4 items left</p>
   </div>
   <section class="tasks-button_group" role="radiogroup" aria-label="Group of buttons to manage tasks">
-    <label>
-      <input class="button-all_tasks" type="radio" name="group" role="radio" aria-label="Show all tasks">All
-    </label>
-    <label class="button-active_tasks">
-      <input class="button-all_tasks" type="radio" name="group" role="radio" aria-label="Show active tasks">Active
-    </label>
-    <label class="button-completed_tasks" aria-label="Show completed tasks">
-      <input class="button-all_tasks" type="radio" name="group" role="radio">Completed
-    </label>
+      <input id="button_all_tasks" class="radio_button" type="radio" name="group" role="radio" aria-label="Show all tasks">
+      <label for="button_all_tasks">All</label>
+
+      <input id="button-active_tasks" class="radio_button" type="radio" name="group" role="radio" aria-label="Show active tasks">
+      <label for="button-active_tasks">Active</label>
+
+      <input id="button-completed_tasks" class="radio_button" type="radio" name="group" role="radio">
+      <label for="button-completed_tasks">Completed</label>
   </section>
   <button class="task-items_clear" aria-label="Clear completed tasks">Clear completed</button>
 </footer>
+</main>
 </body>
 </html>
