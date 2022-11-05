@@ -172,6 +172,7 @@ footer {
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.35px;
+    position: relative;
 }
 
 .todo_app_task-count {
@@ -221,19 +222,32 @@ footer {
     border: 1px solid #EBDFDF;
 }
 
-.first_bottom {
-    background-color: #FFFFFF;
+footer:after {
+    position: absolute;
     height: 5px;
+    display: block;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    content: ' ';
+    width: 99%;
+    bottom: -5px;
+    left: 2px;
     z-index: -1;
-    box-shadow: 0px 2px 4px 0px #00000033;
 }
 
-.second_bottom {
-    background-color: #FFFFFF;
+footer:before {
+    position: absolute;
     height: 5px;
+    display: block;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    content: ' ';
+    width: 98%;
+    bottom: -10px;
+    left: 4px;
     z-index: -2;
-    box-shadow: 0px 2px 4px 0px #00000033;
 }
+
 
 
 
