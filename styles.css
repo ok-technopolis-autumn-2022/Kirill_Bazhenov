@@ -76,6 +76,7 @@ input::placeholder {
     overflow-block: scroll;
 }
 
+
 .todo-app_task-item {
     display: flex;
     min-height: 64px;
@@ -87,6 +88,9 @@ input::placeholder {
     font-size: 24px;
     line-height: 21px;
     letter-spacing: -0.6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 600px;
 }
 
 .task_item-checkbox {
