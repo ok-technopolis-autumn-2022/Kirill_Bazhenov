@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check-styles": "stylelint styles.css"
+    "check-styles": "stylelint styles.css",
+    "local-start": "parcel index.html"
   },
   "repository": {
     "type": "git",
