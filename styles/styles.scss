@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
-
+@import "variables";
 
 body {
     display: flex;
@@ -11,7 +11,7 @@ body {
 }
 
 h1 {
-    font-family: 'Roboto', serif;
+    font-family: $font-Roboto;
     font-style: normal;
     font-weight: 100;
     font-size: 100px;
@@ -22,27 +22,28 @@ h1 {
 }
 
 main {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: $border-shadow;
 }
 
 .todo-app_tasks {
     display: flex;
     flex-direction: column;
     min-width: 562px;
+
+    header {
+        display: flex;
+        background-color: $white-color;
+        align-items: center;
+        min-height: 66px;
+        box-shadow: inset 0px -1px 0px #E6E6E6;
+    }
 }
 
-.todo-app_tasks header {
-    display: flex;
-    background-color: #FFFFFF;
-    align-items: center;
-    min-height: 66px;
-    box-shadow: inset 0px -1px 0px #E6E6E6;
-}
 
 .button_select_all_tasks {
     background-image: url("icons/select-all@2x.svg");
     background-position: center;
-    background-color: #FFFFFF;
+    background-color: $white-color;
     background-repeat: no-repeat;
     background-size: 24px;
     height: 16px;
@@ -54,7 +55,7 @@ main {
 }
 
 .button_select_all_tasks:hover {
-    background-color: #FAFAFA;
+    background-color: $light-grey-color;
 }
 
 .needs_field {
@@ -98,24 +99,52 @@ input::placeholder {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 600px;
+
+   & label {
+        display: flex;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 21px;
+        color: #666666;
+        align-items: center;
+        user-select: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &:hover {
+        background-color: $light-grey-color;
+    }
+
+    &:hover .task-item_delete
+    {
+        opacity: 1;
+    }
 }
 
 .task_item-checkbox {
     position: absolute;
     z-index: -1;
     opacity: 0;
-}
 
-.todo-app_task-item label {
-    display: flex;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 21px;
-    color: #666666;
-    align-items: center;
-    user-select: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    &:checked + .custom_circle_button {
+        background-image: url("icons/completed@2x.svg");
+        background-color: $white-color;
+        background-size: 20px;
+        border: 1px solid #5DC2AF;
+    }
+
+    &:checked ~ .item_name {
+        text-decoration: line-through;
+        color: #CCCCCC;
+    }
+
+    &:hover:not(:checked) + .custom_circle_button,
+    &:focus + .custom_circle_button,
+    & + .custom_circle_button:hover
+    {
+        border: 1px solid #5DC2AF;
+    }
 }
 
 .custom_circle_button {
@@ -136,27 +165,6 @@ input::placeholder {
     text-overflow: ellipsis;
 }
 
-
-.task_item-checkbox:checked + .custom_circle_button {
-    background-image: url("icons/completed@2x.svg");
-    background-color: #FFFFFF;
-    background-size: 20px;
-    border: 1px solid #5DC2AF;
-}
-
-.task_item-checkbox:checked ~ .item_name {
-   text-decoration: line-through;
-   color: #CCCCCC;
-}
-
-
-.task_item-checkbox:hover:not(:checked) + .custom_circle_button,
-.task_item-checkbox:focus + .custom_circle_button,
-.task_item-checkbox +  .custom_circle_button:hover
-{
-    border: 1px solid #5DC2AF;
-}
-
 .task-item_delete {
     margin-left: auto;
     width: 20px;
@@ -165,28 +173,23 @@ input::placeholder {
     background-size: 20px;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #FAFAFA;
+    background-color: $light-grey-color;
     margin-right: 10px;
     border: none;
     opacity: 0;
     flex-shrink: 0;
-}
 
-.todo-app_task-item:hover {
-    background-color: #FAFAFA;
-}
-
-.todo-app_task-item:hover .task-item_delete,
-.task-item_delete:focus
-{
-    opacity: 1;
+    &:focus
+    {
+        opacity: 1;
+    }
 }
 
 footer {
     display: flex;
     align-items: center;
     min-width: 562px;
-    background-color: #FFFFFF;
+    background-color: $white-color;
     box-shadow: inset 0px 1px 0px #E6E6E6;
     justify-content: space-between;
     color: #888888;
@@ -196,6 +199,32 @@ footer {
     line-height: 21px;
     letter-spacing: -0.35px;
     position: relative;
+
+    &:after {
+        position: absolute;
+        height: 5px;
+        display: block;
+        background-color: $white-color;
+        box-shadow: $border-shadow;
+        content: ' ';
+        width: 99%;
+        bottom: -5px;
+        left: 2px;
+        z-index: -1;
+    }
+
+    &:before {
+        position: absolute;
+        height: 5px;
+        display: block;
+        background-color: $white-color;
+        box-shadow: $border-shadow;
+        content: ' ';
+        width: 98%;
+        bottom: -10px;
+        left: 4px;
+        z-index: -2;
+    }
 }
 
 .todo_app_task-count {
@@ -212,70 +241,35 @@ footer {
     position: absolute;
     z-index: -1;
     opacity: 0;
-}
 
-.radio_button + label {
-    border: 1px solid #FFFFFF;
-    padding: 5px 9px;
-    border-radius: 4px;
-}
+    &:hover + label {
+        border: 1px solid #EBDFDF;
+    }
 
-.radio_button:hover + label {
-    border: 1px solid #EBDFDF;
-}
+    &:focus + label {
+        border: 1px solid #EBDFDF;
+    }
 
-.radio_button:focus + label {
-    border: 1px solid #EBDFDF;
+    & + label {
+        border: 1px solid $white-color;
+        padding: 5px 9px;
+        border-radius: 4px;
+    }
 }
 
 .task-items_clear {
     padding: 5px 9px;
     border-radius: 4px;
-    border: 1px solid #FFFFFF;
-    background-color: #FFFFFF;
+    border: 1px solid $white-color;
+    background-color: $white-color;
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
     line-height: 21px;
     color: #888888;
     letter-spacing: -0.35px;
+
+    &:hover {
+        border: 1px solid #EBDFDF;
+    }
 }
-
-.task-items_clear:hover {
-    border: 1px solid #EBDFDF;
-}
-
-footer:after {
-    position: absolute;
-    height: 5px;
-    display: block;
-    background-color: #FFFFFF;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    content: ' ';
-    width: 99%;
-    bottom: -5px;
-    left: 2px;
-    z-index: -1;
-}
-
-footer:before {
-    position: absolute;
-    height: 5px;
-    display: block;
-    background-color: #FFFFFF;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    content: ' ';
-    width: 98%;
-    bottom: -10px;
-    left: 4px;
-    z-index: -2;
-}
-
-
-
-
-
-
-
-
-
