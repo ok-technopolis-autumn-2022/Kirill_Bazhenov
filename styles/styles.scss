@@ -124,6 +124,10 @@ input::placeholder {
   }
 }
 
+.none_display_task {
+  display: none;
+}
+
 .task_item-checkbox {
   position: absolute;
   z-index: -1;
