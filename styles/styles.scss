@@ -57,6 +57,11 @@ main {
   background-color: $light-grey-color;
 }
 
+.needs_field-create_new{
+  flex-grow: 1;
+  display: flex;
+}
+
 .needs_field {
   font-family: "Roboto", serif;
   font-style: normal;
@@ -268,4 +273,3 @@ footer {
     border: 1px solid #ebdfdf;
   }
 }
-

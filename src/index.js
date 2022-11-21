@@ -6,7 +6,6 @@ const activeButton = document.querySelector(`[id="button_active_tasks"]`);
 const completedButton = document.querySelector(`[id="button_completed_tasks"]`);
 const removeButton = document.querySelector('[class="task-items_clear"]');
 
-
 let tasks = [];
 
 function addTask(e) {
