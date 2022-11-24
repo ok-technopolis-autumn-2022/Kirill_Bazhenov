@@ -18,6 +18,19 @@ export function getUncheckedItems() {
   return count;
 }
 
+function deleteTask(event) {
+  let button = event.target;
+  if (button.className === 'task-item_delete') {
+    let li = button.parentElement;
+    let index = tasks.findIndex(el => (el.id === Number(li.id)));
+    tasks.splice(index, 1);
+    li.remove();
+    updateItemsLeft(getUncheckedItems());
+  }
+}
+
+ul.addEventListener('click', deleteTask);
+
 /**
  *
  * @param name {{id : string | number, desc: string}}
@@ -56,17 +69,6 @@ export function createLi(name) {
   const buttonDelete = document.createElement('button');
   buttonDelete.className = 'task-item_delete';
   buttonDelete.ariaRoleDescription = 'button';
-
-  const deleteTask = () => {
-    buttonDelete.removeEventListener('click', deleteTask);
-    let index = tasks.findIndex(el => el.id === name.id)
-    tasks.splice(index, 1);
-    li.remove();
-    updateItemsLeft(getUncheckedItems());
-  };
-
-  buttonDelete.addEventListener('click', deleteTask);
-
 
   const divEdit = document.createElement('div');
   divEdit.className = 'task-item_edit';
