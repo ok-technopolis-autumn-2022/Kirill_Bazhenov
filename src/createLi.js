@@ -1,13 +1,29 @@
 import {updateItemsLeft} from "./updateItemsLeft";
+
+const ul = document.querySelector('.todo-app_task-list');
 let tasks = [];
 
 export let exportTasks = {arr:tasks};
+
+export function getUncheckedItems() {
+  let count = 0;
+  tasks.forEach(function (task) {
+    const li = ul.querySelector(`[id="${task.id}"]`);
+    const label = li.querySelector('label');
+    const checkbox = label.querySelector('[class="task_item-checkbox"]');
+    if (!checkbox.checked) {
+      count++;
+    }
+  });
+  return count;
+}
 
 /**
  *
  * @param name {{id : string | number, desc: string}}
  * @returns {string}
  */
+
 export function createLi(name) {
   const li = document.createElement('li');
   li.id = name.id;
@@ -20,6 +36,12 @@ export function createLi(name) {
   input.type = 'checkbox';
   input.className = 'task_item-checkbox';
   input.ariaLabel = `Completed task: ${name.desc}`;
+
+  function checkItem() {
+    updateItemsLeft(getUncheckedItems());
+  }
+
+  input.addEventListener('click', checkItem);
 
   const div = document.createElement('div');
   div.className = 'custom_circle_button';
@@ -37,10 +59,10 @@ export function createLi(name) {
 
   const deleteTask = () => {
     buttonDelete.removeEventListener('click', deleteTask);
-    let index = tasks.map(el => el.id).indexOf(name.id);
+    let index = tasks.findIndex(el => el.id === name.id)
     tasks.splice(index, 1);
     li.remove();
-    updateItemsLeft(tasks.length);
+    updateItemsLeft(getUncheckedItems());
   };
 
   buttonDelete.addEventListener('click', deleteTask);

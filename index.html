@@ -45,8 +45,9 @@
         name="group"
         role="radio"
         aria-label="Show all tasks"
+        checked
       />
-      <label for="button_all_tasks">All</label>
+      <label for="button_all_tasks" class="checkbox_label">All</label>
 
       <input
         id="button_active_tasks"
@@ -56,7 +57,7 @@
         role="radio"
         aria-label="Show active tasks"
       />
-      <label for="button_active_tasks">Active</label>
+      <label for="button_active_tasks" class="checkbox_label">Active</label>
 
       <input
         id="button_completed_tasks"
@@ -65,7 +66,7 @@
         name="group"
         role="radio"
       />
-      <label for="button_completed_tasks">Completed</label>
+      <label for="button_completed_tasks" class="checkbox_label">Completed</label>
     </section>
     <button class="task-items_clear" aria-label="Clear completed tasks">
       Clear completed

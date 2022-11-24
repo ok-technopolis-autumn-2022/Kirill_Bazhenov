@@ -1,7 +1,10 @@
 
-const itemsCount = document.querySelector('.todo_app_task-count');
+const itemsCount = document.querySelector('.todo_app_task-count p');
+
+function getCorrectDeclination(number) {
+  return (number === 1) ? 'item' : 'items';
+}
 
 export function updateItemsLeft(number) {
-  const words = itemsCount.textContent.trim().split(' ');
-  itemsCount.textContent = String(number) + ' ' + words[1] + ' ' + words[2];
+  itemsCount.textContent = `${number} ${getCorrectDeclination(number)} left`;
 }

@@ -14,7 +14,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-styles": "stylelint styles/styles.scss",
-    "local-start": "parcel index.html"
+    "local-start": "parcel index.html",
+    "eslint-check": "eslint src/index.js src/createLi.js src/updateItemsLeft.js"
   },
   "repository": {
     "type": "git",

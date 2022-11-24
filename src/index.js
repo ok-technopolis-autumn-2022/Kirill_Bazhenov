@@ -1,22 +1,25 @@
-import {createLi, exportTasks} from "./createLi";
+import {createLi, exportTasks, getUncheckedItems} from "./createLi";
 import {updateItemsLeft} from "./updateItemsLeft";
 
 const ul = document.querySelector('.todo-app_task-list');
 const form = document.querySelector('.needs_field-create_new');
 const selectButton = document.querySelector('.button_select_all_tasks');
 const removeButton = document.querySelector('[class="task-items_clear"]');
+const taskButtonGroup = document.querySelector('.tasks-button_group');
 
 
-document.querySelector('.tasks-button_group').onclick = function (event) {
+taskButtonGroup.addEventListener('click', actionOnLabel)
+
+function actionOnLabel(event) {
   let target = event.target;
-  if (target.tagName !== 'LABEL') {
+  if (target.className !== 'checkbox_label') {
     return;
   }
   buttonAction(target);
 }
 
+
 function buttonAction(target) {
-  let itemCount = exportTasks.arr.length;
   exportTasks.arr.forEach(function (task) {
     const li = ul.querySelector(`[id="${task.id}"]`);
     const label = li.querySelector('label');
@@ -27,10 +30,8 @@ function buttonAction(target) {
       li.classList.remove('none_display_task');
     } else {
       li.classList.add('none_display_task');
-      itemCount--;
     }
   });
-  updateItemsLeft(itemCount);
 }
 
 function addTask(e) {
@@ -38,7 +39,7 @@ function addTask(e) {
   const task = createTask(this.description.value);
   ul.appendChild(createLi(task));
   exportTasks.arr.push(task);
-  updateItemsLeft(exportTasks.arr.length);
+  updateItemsLeft(getUncheckedItems());
   this.reset();
 }
 
@@ -62,6 +63,7 @@ function selectAllTasks() {
       li.querySelector('label').click();
     }
   });
+  updateItemsLeft(getUncheckedItems());
 }
 
 function removeAction() {
@@ -75,6 +77,11 @@ function removeAction() {
       inxs.push(index);
     }
   });
-  exportTasks.arr = exportTasks.arr.filter((value, inx) => inxs.indexOf(inx) === -1);
-  updateItemsLeft(exportTasks.arr.length);
+  let i = exportTasks.arr.length;
+  while(i--) {
+    if (inxs.indexOf(i) !== -1) {
+      exportTasks.arr.splice(i, 1);
+    }
+  }
+  updateItemsLeft(getUncheckedItems());
 }
