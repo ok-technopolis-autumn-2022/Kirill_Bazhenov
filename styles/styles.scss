@@ -57,6 +57,11 @@ main {
   background-color: $light-grey-color;
 }
 
+.needs_field-create_new{
+  flex-grow: 1;
+  display: flex;
+}
+
 .needs_field {
   font-family: "Roboto", serif;
   font-style: normal;
@@ -117,6 +122,10 @@ input::placeholder {
   &:hover .task-item_delete {
     opacity: 1;
   }
+}
+
+.none_display_task {
+  display: none;
 }
 
 .task_item-checkbox {

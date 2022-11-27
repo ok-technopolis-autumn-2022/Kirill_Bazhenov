@@ -1,172 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <title>ToDos Application</title>
-    <link rel="stylesheet" href="styles/styles.scss" />
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8"/>
+  <title>ToDos Application</title>
+  <link rel="stylesheet" href="styles/styles.scss"/>
+  <script src="src/index.js" defer></script>
+</head>
+<body>
+<header>
+  <h1>todos</h1>
+</header>
+<main role="main">
+  <section class="todo-app_tasks">
     <header>
-      <h1>todos</h1>
+      <button
+        class="button_select_all_tasks"
+        aria-label="Select all tasks"
+      ></button>
+      <form action="#" method="post" class="needs_field-create_new">
+      <input
+        id="description"
+        class="needs_field"
+        type="text"
+        placeholder="What needs to be done?"
+      />
+      </form>
     </header>
-    <main role="main">
-      <section class="todo-app_tasks">
-        <header>
-          <button
-            class="button_select_all_tasks"
-            aria-label="Select all tasks"
-          ></button>
-          <input
-            class="needs_field"
-            type="text"
-            placeholder="What needs to be done?"
-          />
-        </header>
-        <ul class="todo-app_task-list">
-          <li class="todo-app_task-item">
-            <label>
-              <input
-                name="task1"
-                id="first"
-                class="task_item-checkbox"
-                type="checkbox"
-                role="checkbox"
-                aria-label="Completed task: HTML"
-              />
-              <div class="custom_circle_button"></div>
-              <span class="item_name">HTML</span>
-            </label>
-            <button class="task-item_delete" role="button"></button>
-            <div class="task-item_edit" hidden="hidden">
-              <input
-                type="text"
-                class="task-item_input"
-                value="HTML"
-                aria-label="Edit task: HTML"
-              />
-            </div>
-          </li>
-          <li class="todo-app_task-item">
-            <label>
-              <input
-                name="task2"
-                class="task_item-checkbox"
-                type="checkbox"
-                role="checkbox"
-                aria-label="Completed task: CSS"
-              />
-              <div class="custom_circle_button"></div>
-              <span class="item_name">CSS</span>
-            </label>
-            <button
-              class="task-item_delete"
-              aria-label="Delete task from list"
-            ></button>
-            <div class="task-item_edit" hidden="hidden">
-              <input
-                type="text"
-                class="task-item_input"
-                value="CSS"
-                aria-label="Edit task: CSS"
-              />
-            </div>
-          </li>
-          <li class="todo-app_task-item">
-            <label>
-              <input
-                name="task3"
-                id="third"
-                class="task_item-checkbox"
-                type="checkbox"
-                role="checkbox"
-                aria-label="Completed task: JS"
-              />
-              <div class="custom_circle_button"></div>
-              <span class="item_name">JS</span>
-            </label>
-            <button
-              class="task-item_delete"
-              aria-label="Delete task from list"
-            ></button>
-            <div class="task-item_edit" hidden="hidden">
-              <input
-                type="text"
-                class="task-item_input"
-                value="JS"
-                aria-label="Edit task: JS"
-              />
-            </div>
-          </li>
-          <li class="todo-app_task-item">
-            <label>
-              <input
-                name="task4"
-                type="checkbox"
-                id="fourth"
-                class="task_item-checkbox"
-                role="checkbox"
-                aria-label="Completed task: JS Tools"
-              />
-              <div class="custom_circle_button"></div>
-              <span class="item_name">JS tools</span>
-            </label>
-            <button
-              class="task-item_delete"
-              aria-label="Delete task from list"
-            ></button>
-            <div class="task-item_edit" hidden="hidden">
-              <input
-                type="text"
-                class="task-item_input"
-                value="JS Tools"
-                aria-label="Edit task: JS Tools"
-              />
-            </div>
-          </li>
-        </ul>
-      </section>
-      <footer>
-        <div class="todo_app_task-count">
-          <p aria-label="Amount of left tasks">4 items left</p>
-        </div>
-        <section
-          class="tasks-button_group"
-          role="radiogroup"
-          aria-label="Group of buttons to manage tasks"
-        >
-          <input
-            id="button_all_tasks"
-            class="radio_button"
-            type="radio"
-            name="group"
-            role="radio"
-            aria-label="Show all tasks"
-          />
-          <label for="button_all_tasks">All</label>
+    <ul class="todo-app_task-list">
+    </ul>
+  </section>
+  <footer>
+    <div class="todo_app_task-count">
+      <p aria-label="Amount of left tasks">0 items left</p>
+    </div>
+    <section
+      class="tasks-button_group"
+      role="radiogroup"
+      aria-label="Group of buttons to manage tasks"
+    >
+      <input
+        id="button_all_tasks"
+        class="radio_button"
+        type="radio"
+        name="group"
+        role="radio"
+        aria-label="Show all tasks"
+        checked
+      />
+      <label for="button_all_tasks" class="checkbox_label">All</label>
 
-          <input
-            id="button-active_tasks"
-            class="radio_button"
-            type="radio"
-            name="group"
-            role="radio"
-            aria-label="Show active tasks"
-          />
-          <label for="button-active_tasks">Active</label>
+      <input
+        id="button_active_tasks"
+        class="radio_button"
+        type="radio"
+        name="group"
+        role="radio"
+        aria-label="Show active tasks"
+      />
+      <label for="button_active_tasks" class="checkbox_label">Active</label>
 
-          <input
-            id="button-completed_tasks"
-            class="radio_button"
-            type="radio"
-            name="group"
-            role="radio"
-          />
-          <label for="button-completed_tasks">Completed</label>
-        </section>
-        <button class="task-items_clear" aria-label="Clear completed tasks">
-          Clear completed
-        </button>
-      </footer>
-    </main>
-  </body>
+      <input
+        id="button_completed_tasks"
+        class="radio_button"
+        type="radio"
+        name="group"
+        role="radio"
+      />
+      <label for="button_completed_tasks" class="checkbox_label">Completed</label>
+    </section>
+    <button class="task-items_clear" aria-label="Clear completed tasks">
+      Clear completed
+    </button>
+  </footer>
+</main>
+</body>
 </html>
