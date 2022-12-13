@@ -34,7 +34,7 @@ ul.addEventListener('click', deleteTask);
 /**
  *
  * @param name {{id : string | number, desc: string}}
- * @returns {string}
+ * @returns {HTMLElement}
  */
 
 export function createLi(name) {
