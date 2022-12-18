@@ -1,23 +1,14 @@
-import { AbstractView } from "./AbstractView";
-
-
-export class TaskView extends AbstractView {
-
+export class Task {
   /**
    * @type {HTMLLIElement}
    */
   #task
 
-  /**
-   *
-   * @param props {{
-   *   name (id : string | number, desc: string),
-   *   getUncheckedItems: () => Number
-   * }}
-   */
-  constructor(props) {
-    super(props);
-    this.#task = this.#createLi();
+  #visibility
+
+  constructor(name) {
+    this.#task = this.#createLi(name);
+    this.#visibility = true;
   }
 
   getId() {
@@ -28,16 +19,26 @@ export class TaskView extends AbstractView {
     return this.#task;
   }
 
+  isVisible() {
+    return this.#visibility;
+  }
+
   doVisible() {
     this.#task.classList.remove('none_display_task');
+    this.#visibility = true;
   }
 
   doNotVisible() {
     this.#task.classList.add('none_display_task');
+    this.#visibility = false;
   }
 
   getLabel() {
     return this.#task.querySelector('label');
+  }
+
+  getInput() {
+    return this.#task.querySelector('input');
   }
 
   /**
@@ -46,12 +47,8 @@ export class TaskView extends AbstractView {
   getCheckboxState() {
     return this.getLabel().querySelector('[class="task_item-checkbox"]');
   }
-  /**
-   *
-   * @return {HTMLLIElement}
-   */
-  #createLi() {
-    const {name, getUncheckedItems} = this._props;
+
+  #createLi(name) {
     const li = document.createElement('li');
     li.id = name.id;
     li.className = 'todo-app_task-item';
@@ -63,7 +60,6 @@ export class TaskView extends AbstractView {
     input.type = 'checkbox';
     input.className = 'task_item-checkbox';
     input.ariaLabel = `Completed task: ${name.desc}`;
-    input.addEventListener('click', getUncheckedItems);
 
     const div = document.createElement('div');
     div.className = 'custom_circle_button';
@@ -73,7 +69,6 @@ export class TaskView extends AbstractView {
     span.textContent = name.desc;
 
     label.append(input, div, span);
-
 
     const buttonDelete = document.createElement('button');
     buttonDelete.className = 'task-item_delete';
@@ -93,5 +88,4 @@ export class TaskView extends AbstractView {
     li.append(label, buttonDelete, divEdit);
     return li;
   }
-
 }
