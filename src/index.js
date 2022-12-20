@@ -1,87 +1,56 @@
-import {createLi, exportTasks, getUncheckedItems} from "./createLi";
-import {updateItemsLeft} from "./updateItemsLeft";
+import { TaskStorage } from "./TaskStorage";
+import { StateObservable } from "./observables/StateObservable";
+import { ItemsObserver } from "./observers/ItemsObserver";
+import { ListObserver } from "./observers/ListObserver";
+import { RemoveTaskObservable } from "./observables/RemoveTaskObservable";
+import { DeleteObserver } from "./observers/DeleteObserver";
+import { Observable } from "./observables/Observable";
+import { SelectAllObserver } from "./observers/SelectAllObserver";
+import { RemoveCompletedObserver } from "./observers/RemoveCompletedObserver";
 
-const ul = document.querySelector('.todo-app_task-list');
 const form = document.querySelector('.needs_field-create_new');
-const selectButton = document.querySelector('.button_select_all_tasks');
-const removeButton = document.querySelector('[class="task-items_clear"]');
+const ul = document.querySelector('.todo-app_task-list');
 const taskButtonGroup = document.querySelector('.tasks-button_group');
+const selectAllButton = document.querySelector('.button_select_all_tasks');
+const removeButton = document.querySelector('[class="task-items_clear"]')
 
+const itemObserver = new ItemsObserver();
 
-taskButtonGroup.addEventListener('click', actionOnLabel)
+const taskStorage = new TaskStorage();
+form.addEventListener('submit', addTask);
 
-function actionOnLabel(event) {
-  let target = event.target;
-  if (target.className !== 'checkbox_label') {
-    return;
-  }
-  buttonAction(target);
-}
+const state = new StateObservable();
+state.subscribe(itemObserver);
+state.subscribe(new ListObserver());
 
+const removeAction = new RemoveTaskObservable();
+removeAction.subscribe(new DeleteObserver());
+removeAction.subscribe(itemObserver);
 
-function buttonAction(target) {
-  exportTasks.arr.forEach(function (task) {
-    const li = ul.querySelector(`[id="${task.id}"]`);
-    const label = li.querySelector('label');
-    const checkbox = label.querySelector('[class="task_item-checkbox"]');
-    const forValue = target.getAttribute('for');
-    if (forValue === 'button_all_tasks' || (forValue === 'button_active_tasks' && !checkbox.checked)
-        || (forValue === 'button_completed_tasks' && checkbox.checked)) {
-      li.classList.remove('none_display_task');
-    } else {
-      li.classList.add('none_display_task');
-    }
-  });
-}
+const selectAll = new Observable();
+selectAll.subscribe(new SelectAllObserver());
+selectAll.subscribe(itemObserver);
 
-function addTask(e) {
-  e.preventDefault();
-  const task = createTask(this.description.value);
-  ul.appendChild(createLi(task));
-  exportTasks.arr.push(task);
-  updateItemsLeft(getUncheckedItems());
+const removeCompleted = new Observable();
+removeCompleted.subscribe(new RemoveCompletedObserver());
+removeCompleted.subscribe(itemObserver);
+
+taskButtonGroup.addEventListener('click', (event) => state.notify(taskStorage, event));
+ul.addEventListener('click', (event) => removeAction.notify(taskStorage, event));
+selectAllButton.addEventListener('click', () => selectAll.notify(taskStorage));
+removeButton.addEventListener('click', () => removeCompleted.notify(taskStorage));
+function addTask(event){
+  event.preventDefault();
+  const task = taskStorage.addTask(createTask(this.description.value));
+  ul.appendChild(task.getLiElement());
+  task.getInput().addEventListener('click', (event) => state.notify(taskStorage, event));
+  state.notify(taskStorage, event);
   this.reset();
 }
 
-function createTask(desc) {
+function createTask(desc){
   return {
     id: Date.now(),
     desc: desc,
   };
-}
-
-form.addEventListener('submit', addTask);
-selectButton.addEventListener('click', selectAllTasks);
-removeButton.addEventListener('click', removeAction);
-
-function selectAllTasks() {
-  exportTasks.arr.forEach(function (task) {
-    const li = ul.querySelector(`[id="${task.id}"]`);
-    const label = li.querySelector('label');
-    const checkbox = label.querySelector('[class="task_item-checkbox"]');
-    if (!checkbox.checked) {
-      li.querySelector('label').click();
-    }
-  });
-  updateItemsLeft(getUncheckedItems());
-}
-
-function removeAction() {
-  const inxs = [];
-  exportTasks.arr.forEach(function (task, index) {
-    const li = ul.querySelector(`[id="${task.id}"]`);
-    const label = li.querySelector('label');
-    const checkbox = label.querySelector('[class="task_item-checkbox"]');
-    if (checkbox.checked) {
-      li.remove();
-      inxs.push(index);
-    }
-  });
-  let i = exportTasks.arr.length;
-  while(i--) {
-    if (inxs.indexOf(i) !== -1) {
-      exportTasks.arr.splice(i, 1);
-    }
-  }
-  updateItemsLeft(getUncheckedItems());
 }
